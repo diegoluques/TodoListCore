@@ -5,7 +5,9 @@ using TodoList.ListaLeitura.Persistencia;
 
 namespace TodoList.WebAPI.WebApp.Api
 {
-	public class LivrosController : Controller
+	[ApiController]
+	[Route("[controller]")]
+	public class LivrosController : ControllerBase
 	{
 		private readonly IRepository<Livro> _repository;
 
@@ -14,14 +16,14 @@ namespace TodoList.WebAPI.WebApp.Api
 			_repository = repository;
 		}
 
-		[HttpGet]
+		[HttpGet("{id}")]
 		public IActionResult Recuperar(int id)
 		{
 			var model = _repository.Find(id);
 			if (model == null)
 				return NotFound();
 
-			return Json(model.ToModel());
+			return Ok(model.ToModel());
 		}
 
 		[HttpPost]
@@ -40,7 +42,7 @@ namespace TodoList.WebAPI.WebApp.Api
 			return BadRequest();
 		}
 
-		[HttpPost]
+		[HttpPut("{id}")]
 		public IActionResult Detalhes(LivroUpload model)
 		{
 			if (ModelState.IsValid)
@@ -59,7 +61,7 @@ namespace TodoList.WebAPI.WebApp.Api
 			return BadRequest();
 		}
 
-		[HttpPost]
+		[HttpDelete("{id}")]
 		public IActionResult Remover(int id)
 		{
 			var model = _repository.Find(id);
