@@ -16,6 +16,13 @@ namespace TodoList.WebAPI.WebApp.Api
 			_repository = repository;
 		}
 
+		[HttpGet]
+		public IActionResult ListaDeLivros()
+		{
+			var lista = _repository.All.Select(l => l.ToModel()).ToList();
+			return Ok(lista);
+		}
+
 		[HttpGet("{id}")]
 		public IActionResult Recuperar(int id)
 		{
