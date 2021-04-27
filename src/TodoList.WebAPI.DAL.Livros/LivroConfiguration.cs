@@ -19,7 +19,7 @@ namespace TodoList.ListaLeitura.Persistencia
 
 			builder
 				.Property(l => l.Resumo)
-				.HasColumnType("nvarchar(500)");
+				.HasColumnType("nvarchar(1000)");
 
 			builder
 				.Property(l => l.Autor)
